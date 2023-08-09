@@ -21,7 +21,8 @@ import { CommonModule } from '@angular/common';
       padding-left: var(--spacing-one);
     }
     h1 {
-        font-size: var(--spacing-one-and-half)
+        font-size: var(--spacing-one-and-half);
+        font-family: cursive;
       }
   `],
 })
