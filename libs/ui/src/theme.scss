@@ -1,0 +1,24 @@
+@import './reset.scss';
+
+:root {
+    /**
+    * Spacings
+    **/
+    --spacing-quarter: 0.25rem;
+    --spacing-half: 0.5rem;
+    --spacing-three-quarters: 0.75rem;
+    --spacing-one: 1rem;
+    --spacing-one-and-half: 1.5rem;
+    --spacing-two: 2rem;
+    --spacing-two-and-half: 2.5rem;
+    --spacing-three: 3rem;
+    --spacing-three-and-half: 3.5rem;
+    --spacing-four: 4rem;
+    --spacing-four-and-half: 4.5rem;
+    --spacing-eight: 8rem;
+
+    /**
+    * Colors
+    **/
+    --color-primary: #1f2937;
+}

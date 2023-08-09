@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { NxWelcomeComponent } from './nx-welcome.component';
+import { ToolbarComponent } from '@aize/ui';
 
 @Component({
   standalone: true,
-  imports: [NxWelcomeComponent],
+  imports: [ToolbarComponent],
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'aize';
+
 }
