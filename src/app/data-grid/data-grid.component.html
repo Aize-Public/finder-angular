@@ -1,0 +1,20 @@
+<div class="table-container">
+    <ng-container *ngIf="data$ | async as data">
+        <table>
+            <thead>
+                <tr>
+                    <th *ngFor="let header of data[0] | headers:itemsToShow">
+                        {{header}}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let row of data">
+                    <td *ngFor="let key of row | headers:itemsToShow"> 
+                        {{ row[key] }} 
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </ng-container>
+</div>

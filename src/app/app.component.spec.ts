@@ -1,11 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { NxWelcomeComponent } from './nx-welcome.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent, NxWelcomeComponent],
+      imports: [AppComponent],
     }).compileComponents();
   });
 
@@ -19,6 +18,6 @@ describe('AppComponent', () => {
   it(`should have as title 'aize'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('aize');
+    expect(app).toEqual('aize');
   });
 });
