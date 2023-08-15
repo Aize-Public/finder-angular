@@ -1,0 +1,89 @@
+$container-size: 420px;
+$tag-max-width: 150px;
+
+.overlay {
+    width: $container-size;
+    height: auto;
+    max-height: $container-size;
+    overflow-y: auto;
+    background: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.overlay-backdrop {
+    background: transparent;
+}
+
+.multi-select {
+    position: relative;
+    display: inline-block;
+}
+
+.selected-tags {
+    display: flex;
+    gap: var(--spacing-quarter);
+}
+
+.selected-tags-container {
+    width: $container-size;
+    border: 1px solid #ccc;
+    padding: var(--spacing-quarter);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    height: 40px;
+    box-sizing: border-box;
+    gap: var(--spacing-quarter);
+    border-radius: 3px;
+    cursor: pointer;
+    user-select: none;
+
+    &>p {
+        color: var(--color-primary);
+        font-weight: bold;
+    }
+}
+
+.selected-tags.overflowed::before {
+    content: '';
+    flex-grow: 1;
+}
+
+.tag {
+    display: flex;
+    align-items: center;
+    background-color: var(--color-secondary);
+    color: white;
+    padding: 3px 8px;
+    border-radius: 2px;
+    max-width: $tag-max-width;
+    overflow: hidden;
+
+    p {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+.overflow-count {
+    display: flex;
+    align-items: center;
+    background-color: #f0f0f0;
+    padding: 3px 8px;
+    border-radius: 2px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+label {
+    display: block;
+    padding: var(--spacing-one);
+    cursor: pointer;
+
+    &:hover {
+        background-color: #f0f0f0;
+    }
+}

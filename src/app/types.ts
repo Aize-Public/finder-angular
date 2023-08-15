@@ -1,4 +1,4 @@
-export interface ISearchDataModel  {
+export type SearchDataType = {
     "SET POINT HIGH HIGH": number;
     "sapParentAvevaExternalId": string;
     "Issued By": string;
@@ -32,4 +32,14 @@ export interface ISearchDataModel  {
     "LAST MAINTENANCE DATE": string;
     "CALIBRATION DATE": string;
     "LAST INSPECTION DATE": string;
+};
+
+
+export type FiltersType = {
+    [K in keyof SearchDataType]: {
+        dataType: string,
+        values: Array<string | number>,
+        min?: number,
+        max?: number
+    }
 };

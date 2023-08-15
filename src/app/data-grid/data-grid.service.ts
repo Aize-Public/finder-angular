@@ -1,13 +1,13 @@
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ISearchDataModel } from '../../models/search-data.model';
 import { ApiService } from '../api.service';
+import { SearchDataType } from '../types';
 
 @Injectable()
 export class DataGridService {
     private readonly api = inject(ApiService);
 
-    getAll(): Observable<Array<ISearchDataModel>> {
+    getAll(): Observable<Array<SearchDataType>> {
         return this.api.get('api/search');
     }
 
