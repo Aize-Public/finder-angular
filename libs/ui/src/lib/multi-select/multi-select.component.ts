@@ -1,6 +1,7 @@
+import { SelectionModel } from '@angular/cdk/collections';
 import { Overlay, OverlayModule, ScrollStrategy } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild, inject } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, inject } from '@angular/core';
 
 
 @Component({
@@ -12,10 +13,12 @@ import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild, inject 
 })
 export class MultiSelectComponent implements OnInit, AfterViewInit {
 
-  @ViewChild('tagsContainer') tagsContainer!: ElementRef;
+  @ViewChild('tagsContainer') tagsContainer!: ElementRef<HTMLDivElement>;
 
   private readonly overlay = inject(Overlay);
+  protected readonly selectionModel = new SelectionModel<string>(true);
   protected scrollStrategy!: ScrollStrategy;
+
 
   @Input()
   label = '';
@@ -23,12 +26,15 @@ export class MultiSelectComponent implements OnInit, AfterViewInit {
   @Input()
   values = [];
 
+  @Output()
+  selectionChange = new EventEmitter();
+
   isDropdownOpen = false;
   selectedItems: string[] = [];
   maxVisibleTags = 0;
 
   get visibleItems(): string[] {
-    return this.selectedItems.slice(0, this.maxVisibleTags);
+    return this.selectionModel.selected.slice(0, this.maxVisibleTags);
   }
 
   ngOnInit(): void {
@@ -44,20 +50,13 @@ export class MultiSelectComponent implements OnInit, AfterViewInit {
   }
 
   toggleSelection(item: string) {
-    if (this.selectedItems.includes(item)) {
-      this.selectedItems = this.selectedItems.filter(i => i !== item);
-    } else {
-      this.selectedItems.push(item);
-    }
-  }
-
-  removeSelected(item: string) {
-    this.selectedItems = this.selectedItems.filter(i => i !== item);
+    this.selectionModel.toggle(item);
+    this.selectionChange.emit(this.selectionModel.selected);
   }
 
   private calculateMaxVisibleTags(): void {
-    const containerWidth = this.tagsContainer.nativeElement.offsetWidth;
-    const tagWidth = 150; // tmp
+    const containerWidth = this.tagsContainer.nativeElement.offsetWidth - 95;
+    const tagWidth = 90; // tmp
     this.maxVisibleTags = Math.floor(containerWidth / tagWidth);
   }
 }

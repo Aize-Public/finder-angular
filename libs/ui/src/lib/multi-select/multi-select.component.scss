@@ -1,5 +1,5 @@
 $container-size: 420px;
-$tag-max-width: 150px;
+$tag-max-width: 90px;
 
 .overlay {
     width: $container-size;
@@ -43,6 +43,7 @@ $tag-max-width: 150px;
     &>p {
         color: var(--color-primary);
         font-weight: bold;
+        text-wrap: nowrap;
     }
 }
 
@@ -58,9 +59,9 @@ $tag-max-width: 150px;
     color: white;
     padding: 3px 8px;
     border-radius: 2px;
+    width: $tag-max-width;
     max-width: $tag-max-width;
     overflow: hidden;
-
     p {
         white-space: nowrap;
         overflow: hidden;

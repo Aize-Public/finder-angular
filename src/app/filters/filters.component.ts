@@ -39,4 +39,8 @@ export class FiltersComponent {
 
   protected defaultFilters: Array<keyof FiltersType> = ['System', 'Discipline', 'FIRE AREA'];
 
+  onSelectionChange(values: Array<string>): void {
+    console.table(values)
+  }
+
 }

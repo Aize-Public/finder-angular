@@ -1,13 +1,13 @@
 <div class="multi-select" (click)="isDropdownOpen = !isDropdownOpen" cdkOverlayOrigin #trigger="cdkOverlayOrigin">
     <div class="selected-tags-container" #tagsContainer>
         <p>{{label}}:</p>
-        <div class="selected-tags" [class.overflowed]="selectedItems.length > maxVisibleTags">
+        <div class="selected-tags" [class.overflowed]="selectionModel.selected.length > maxVisibleTags">
             <ng-container *ngFor="let selectedItem of visibleItems; let last = last">
-                <div class="tag">
+                <div class="tag" #tag>
                     <p>{{ selectedItem }}</p>
                 </div>
-                <span *ngIf="last && selectedItems.length > maxVisibleTags" class="overflow-count">
-                    +{{ selectedItems.length - maxVisibleTags }}
+                <span *ngIf="last && selectionModel.selected.length > maxVisibleTags" class="overflow-count">
+                    +{{ selectionModel.selected.length - maxVisibleTags }}
                 </span>
             </ng-container>
         </div>
@@ -21,7 +21,7 @@
     cdkConnectedOverlayHasBackdrop (backdropClick)="isDropdownOpen = false">
     <div class="overlay">
         <label *ngFor="let value of values">
-            <input type="checkbox" [checked]="selectedItems.includes(value)" (change)="toggleSelection(value)" />
+            <input type="checkbox" [checked]="selectionModel.isSelected(value)" (change)="toggleSelection(value)" />
             {{ value }}
         </label>
     </div>
