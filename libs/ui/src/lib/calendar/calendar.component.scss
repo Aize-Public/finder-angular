@@ -1,0 +1,24 @@
+:host {
+    cursor: pointer;
+    font-weight: lighter;
+    width: 412px;
+
+    p {
+        margin-bottom: var(--spacing-quarter);
+    }
+
+    input {
+        border: 1px solid #ccc;
+        padding: var(--spacing-quarter);
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        flex-wrap: nowrap;
+        height: 40px;
+        box-sizing: border-box;
+        gap: var(--spacing-quarter);
+        border-radius: 3px;
+        user-select: none;
+        width: 100%
+    }
+}

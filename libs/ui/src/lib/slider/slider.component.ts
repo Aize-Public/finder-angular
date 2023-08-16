@@ -22,6 +22,8 @@ import { FormsModule } from '@angular/forms';
       font-weight: lighter;
       .slider-container {
         display: flex;
+        flex: 1;
+        align-items: center;
         .slider {
           flex: 1
         }
@@ -44,7 +46,7 @@ export class SliderComponent implements OnChanges {
   range: Array<number> = []
 
   @Output()
-  selectionChange = new EventEmitter();
+  sliderChange = new EventEmitter();
 
   protected value = this.min;
 
@@ -56,6 +58,6 @@ export class SliderComponent implements OnChanges {
   }
 
   protected onSliderChange(value: number): void {
-    this.selectionChange.emit(value);
+    this.sliderChange.emit(value);
   }
 }

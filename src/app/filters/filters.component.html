@@ -13,11 +13,12 @@
 
 
 <ng-template #date let-filter>
-    -> Label: {{filter[0] }}
+    <aize-ui-calendar [label]="filter[0]" [min]="filter[1].min" [max]="filter[1].max"  (dateChange)="onDateChange($event)"/>
 </ng-template>
 
 <ng-template #range let-filter>
-    <aize-ui-slider [label]="filter[0]" [min]="filter[1].min" [max]="filter[1].max" [range]="filter[1].values" />
+    <aize-ui-slider [label]="filter[0]" [min]="filter[1].min" [max]="filter[1].max" [range]="filter[1].values"
+        (sliderChange)="onSliderChange($event)" />
 </ng-template>
 
 <ng-template #menu let-filter>

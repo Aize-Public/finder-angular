@@ -98,3 +98,10 @@ label {
         background-color: #f0f0f0;
     }
 }
+
+.arrow-down {
+    position: absolute;
+    right: 2px ;
+    font-size: var(--spacing-three-quarters);
+    color: var(--color-primary);
+}

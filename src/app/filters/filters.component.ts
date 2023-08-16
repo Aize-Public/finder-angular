@@ -6,7 +6,7 @@ import { FiltersService } from './filters.service';
 import { FiltersType } from '../types';
 import { Pipe, PipeTransform } from '@angular/core';
 import { map } from 'rxjs';
-import { MultiSelectComponent, SliderComponent } from '@aize/ui';
+import { CalendarComponent, MultiSelectComponent, SliderComponent } from '@aize/ui';
 
 
 @Pipe({
@@ -27,7 +27,7 @@ export class ActiveFiltersPipe implements PipeTransform {
 @Component({
   selector: 'aize-filters',
   standalone: true,
-  imports: [CommonModule, HttpClientModule, ActiveFiltersPipe, MultiSelectComponent, SliderComponent],
+  imports: [CommonModule, HttpClientModule, ActiveFiltersPipe, MultiSelectComponent, SliderComponent, CalendarComponent],
   providers: [ApiService, FiltersService],
   templateUrl: './filters.component.html',
   styleUrls: ['./filters.component.scss'],
@@ -36,10 +36,18 @@ export class FiltersComponent {
   protected readonly filters$ = inject(FiltersService).getFilters().pipe(
     map(filters => Object.entries(filters))
   );
-  protected defaultFilters: Array<keyof FiltersType> = ['System', 'Discipline', 'FIRE AREA', 'CALIBRATED RANGE MAX', 'CALIBRATED RANGE MAX_UOM'];
+  protected defaultFilters: Array<keyof FiltersType> = ['System', 'Discipline', 'FIRE AREA', 'CALIBRATED RANGE MAX', 'CALIBRATED RANGE MAX_UOM', 'createdTime'];
 
   onSelectionChange(values: Array<string>): void {
     console.table(values)
+  }
+
+  onSliderChange(value: number): void {
+    console.table(value)
+  }
+
+  onDateChange(date: number) {
+    console.table(date)
   }
 
 }
