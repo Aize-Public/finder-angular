@@ -1,5 +1,5 @@
-$container-size: 420px;
-$tag-max-width: 90px;
+$container-size: 412px;
+$tag-max-width: 85px;
 
 .overlay {
     width: $container-size;
@@ -40,11 +40,20 @@ $tag-max-width: 90px;
     cursor: pointer;
     user-select: none;
 
-    &>p {
+}
+
+.label-container {
+    margin-bottom: var(--spacing-quarter);
+
+    p {
         color: var(--color-primary);
-        font-weight: bold;
         text-wrap: nowrap;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: lighter;
     }
+
 }
 
 .selected-tags.overflowed::before {
@@ -62,6 +71,7 @@ $tag-max-width: 90px;
     width: $tag-max-width;
     max-width: $tag-max-width;
     overflow: hidden;
+
     p {
         white-space: nowrap;
         overflow: hidden;

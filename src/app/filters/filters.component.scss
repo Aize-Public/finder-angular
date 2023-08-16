@@ -1,5 +1,6 @@
 :host {
     display: flex;
-    gap: var(--spacing-one);
+    column-gap: var(--spacing-half);
+    row-gap: var(--spacing-one);
     flex-wrap: wrap;
 }

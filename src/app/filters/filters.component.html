@@ -1,9 +1,12 @@
 <ng-container *ngIf="filters$ | async as filters">
     <ng-container *ngFor="let filter of filters | activeFilters:defaultFilters">
         <ng-container [ngSwitch]="filter[1].dataType">
-            <ng-container *ngSwitchCase="'date'"  [ngTemplateOutlet]="date" [ngTemplateOutletContext]="{$implicit: filter}"/>
-            <ng-container *ngSwitchCase="'string'"  [ngTemplateOutlet]="menu" [ngTemplateOutletContext]="{$implicit: filter}"/>
-            <ng-container *ngSwitchCase="'number'"  [ngTemplateOutlet]="range" [ngTemplateOutletContext]="{$implicit: filter}"/>
+            <ng-container *ngSwitchCase="'date'" [ngTemplateOutlet]="date"
+                [ngTemplateOutletContext]="{$implicit: filter}" />
+            <ng-container *ngSwitchCase="'string'" [ngTemplateOutlet]="menu"
+                [ngTemplateOutletContext]="{$implicit: filter}" />
+            <ng-container *ngSwitchCase="'number'" [ngTemplateOutlet]="range"
+                [ngTemplateOutletContext]="{$implicit: filter}" />
         </ng-container>
     </ng-container>
 </ng-container>
@@ -14,9 +17,10 @@
 </ng-template>
 
 <ng-template #range let-filter>
-    -> Label: {{filter[0] }}
+    <aize-ui-slider [label]="filter[0]" [min]="filter[1].min" [max]="filter[1].max" [range]="filter[1].values" />
 </ng-template>
 
 <ng-template #menu let-filter>
-    <aize-ui-multi-select [label]="filter[0]"  [values]="filter[1].values" (selectionChange)="onSelectionChange($event)"/>
+    <aize-ui-multi-select [label]="filter[0]" [values]="filter[1].values"
+        (selectionChange)="onSelectionChange($event)" />
 </ng-template>

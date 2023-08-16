@@ -55,8 +55,8 @@ export class MultiSelectComponent implements OnInit, AfterViewInit {
   }
 
   private calculateMaxVisibleTags(): void {
-    const containerWidth = this.tagsContainer.nativeElement.offsetWidth - 95;
-    const tagWidth = 90; // tmp
+    const containerWidth = this.tagsContainer.nativeElement.offsetWidth - 40;
+    const tagWidth = 85; // tmp
     this.maxVisibleTags = Math.floor(containerWidth / tagWidth);
   }
 }
