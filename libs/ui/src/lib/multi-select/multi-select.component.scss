@@ -9,6 +9,8 @@ $tag-max-width: 85px;
     background: white;
     display: flex;
     flex-direction: column;
+    border: 1px solid #ccc;
+    margin-top: 2px;
 }
 
 .overlay-backdrop {

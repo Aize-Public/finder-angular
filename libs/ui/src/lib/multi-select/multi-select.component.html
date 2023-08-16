@@ -1,6 +1,6 @@
 <div class="multi-select" (click)="isDropdownOpen = !isDropdownOpen" cdkOverlayOrigin #trigger="cdkOverlayOrigin">
     <div class="label-container">
-        <p>{{label}}:</p>
+        <p>{{label}}</p>
     </div>
     <div class="selected-tags-container" #tagsContainer>
         <div class="selected-tags" [class.overflowed]="selectionModel.selected.length > maxVisibleTags">
