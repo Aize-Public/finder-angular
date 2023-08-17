@@ -15,7 +15,7 @@ import { FormsModule } from '@angular/forms';
   `,
   styles: [
     `:host {
-      min-width: 320px;
+      min-width: 412px;
       gap: var(--spacing-quarter);
       display: flex;
       flex-direction: column;

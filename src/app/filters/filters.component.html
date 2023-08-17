@@ -18,7 +18,7 @@
         (backdropClick)="isDropdownOpen = false">
         <div class="overlay">
             <label *ngFor="let filter of availableFilters">
-                <input type="checkbox" [checked]="selectionModel.isSelected(filter)" (change)="selectionModel.toggle(filter)" />
+                <input type="checkbox" [checked]="selectionModel.isSelected(filter)" (change)="selectionModel.toggle(filter);" />
                 {{ filter }}
             </label>
         </div>
