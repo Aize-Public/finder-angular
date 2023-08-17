@@ -3,4 +3,38 @@
     column-gap: var(--spacing-half);
     row-gap: var(--spacing-one);
     flex-wrap: wrap;
+
+    .filter-btn {
+        width: 170px;
+        padding: 0;
+        height: 40px;
+        background: var(--color-primary);
+        outline: none;
+        border: none;
+        border-radius: 2px;
+        color: white;
+        font-size: var(--spacing-one);
+        letter-spacing: 0.5px;
+        cursor: pointer;
+        align-self: center;
+
+        &:hover {
+            background: #1f2937db;
+        }
+    }
+}
+
+.overlay {
+    width: auto;
+    max-height: 400px;
+    border: 1px solid #ccc;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-half);
+    background: white;
+    label {
+        padding: var(--spacing-one);
+        cursor: pointer;
+    }
 }
