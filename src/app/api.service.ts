@@ -14,4 +14,11 @@ export class ApiService {
             .pipe(catchError((errors) => throwError(() => new Error(errors.error))));
     }
 
+    post<T>(path: string, body = {}): Observable<T> {
+        return this.http.post<T>(
+            `http://localhost:3000/${path}`,
+            JSON.stringify(body)
+        ).pipe(catchError((errors) => throwError(() => new Error(errors.error))));
+    }
+
 }

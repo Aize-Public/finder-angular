@@ -4,6 +4,7 @@ import fs from 'fs';
 import cors from 'cors';
 import { parseValue } from './parser';
 import { Metadata } from './models';
+import { applyFilters, isDateValid } from './utils';
 
 const host = process.env.HOST ?? 'localhost';
 const port = process.env.PORT ? Number(process.env.PORT) : 3000;
@@ -106,6 +107,98 @@ app.get('/api/meta', (_req, res) => {
       .json({ error: "An error occurred while processing the data." });
   }
 })
+
+
+
+app.post('/api/search', (req, res) => {
+  const defaultSize = 15;
+  const searchData = JSON.parse(fs.readFileSync('./dummy_data.json', 'utf-8'));
+  let results = [];
+
+  const {
+    query,
+    aggregate,
+    stats,
+    filters,
+    size = defaultSize,
+    offset = 0,
+  } = req.body;
+
+  if (!query) {
+    results = searchData.slice(offset, -1);
+  } else {
+    results = searchData.filter((item) =>
+      Object.values(item).some((value) => {
+        if (typeof value === "string") {
+          return value.toLowerCase().includes(query.toLowerCase());
+        }
+        return false;
+      })
+    );
+  }
+  if (offset && query) {
+    results = results.slice(offset);
+  }
+  let filteredResults = applyFilters(results, filters);
+
+  const aggregations = {};
+  const stat = {};
+  const statsData: { [key: string]: number[] } = {};
+
+  if (aggregate || stats) {
+    const aggregateFields = aggregate.split(",");
+    const statsFields = stats.split(",");
+    aggregateFields.forEach((field) => {
+      aggregations[field] = {};
+    });
+    statsFields.forEach((field) => {
+      statsData[field] = [];
+    });
+
+    filteredResults.forEach((item) => {
+      aggregateFields.forEach((field) => {
+        const value = item[field];
+        if (value) {
+          aggregations[field][value] = (aggregations[field][value] || 0) + 1;
+        }
+      });
+
+      statsFields.forEach((field) => {
+        const value = item[field];
+        if (isDateValid(value)) {
+          statsData[field].push(new Date(item[field]).getTime());
+        } else if (value) {
+          statsData[field].push(item[field]);
+        }
+      });
+    });
+
+    Object.keys(statsData).forEach((data) => {
+      const minMax = {
+        min: Math.min(...statsData[data]),
+        max: Math.max(...statsData[data]),
+      };
+      stat[data] = minMax;
+    });
+  }
+
+  const hits = filteredResults.length;
+
+  if (size && size !== 0) {
+    filteredResults = filteredResults.slice(0, size);
+  } else {
+    filteredResults = [];
+  }
+
+  const response = {
+    hits,
+    results: filteredResults,
+    aggregations,
+    stats: stat,
+  };
+
+  res.status(200).json(response);
+});
 
 app.listen(port, host, () => {
   console.log(`[ ready ] http://${host}:${port}...🚀`);
