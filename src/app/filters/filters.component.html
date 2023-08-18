@@ -1,4 +1,4 @@
-<ng-container *ngIf="filters$ | async as filters">
+<section class="filters" *ngIf="filters$ | async as filters">
     <ng-container *ngFor="let filter of filters | activeFilters:selectionModel.selected">
         <ng-container [ngSwitch]="filter[1].dataType">
             <ng-container *ngSwitchCase="'date'" [ngTemplateOutlet]="date"
@@ -9,8 +9,11 @@
                 [ngTemplateOutletContext]="{$implicit: filter}" />
         </ng-container>
     </ng-container>
-
-    <button class="filter-btn" (click)="isDropdownOpen = !isDropdownOpen" cdkOverlayOrigin #trigger="cdkOverlayOrigin">+ Add Filter</button>
+</section>
+<hr/>
+<section class="add-filters">
+    <button class="filter-btn" (click)="isDropdownOpen = !isDropdownOpen" cdkOverlayOrigin #trigger="cdkOverlayOrigin">+
+        Add Filter</button>
 
     <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="isDropdownOpen"
         cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayScrollStrategy]="scrollStrategy"
@@ -18,13 +21,13 @@
         (backdropClick)="isDropdownOpen = false">
         <div class="overlay">
             <label *ngFor="let filter of availableFilters">
-                <input type="checkbox" [checked]="selectionModel.isSelected(filter)" (change)="selectionModel.toggle(filter);" />
+                <input type="checkbox" [checked]="selectionModel.isSelected(filter)"
+                    (change)="selectionModel.toggle(filter);" />
                 {{ filter }}
             </label>
         </div>
     </ng-template>
-</ng-container>
-
+</section>
 
 <ng-template #date let-filter>
     <aize-ui-calendar [label]="filter[0]" [min]="filter[1].min" [max]="filter[1].max"

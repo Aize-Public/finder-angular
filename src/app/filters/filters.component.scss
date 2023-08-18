@@ -1,8 +1,18 @@
-:host {
+.filters {
     display: flex;
     column-gap: var(--spacing-half);
     row-gap: var(--spacing-one);
     flex-wrap: wrap;
+}
+
+hr {
+    border: 0.5px solid #f2f2f2;
+}
+
+.add-filters {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-top: var(--spacing-one);
 
     .filter-btn {
         width: 170px;
@@ -33,6 +43,8 @@
     flex-direction: column;
     gap: var(--spacing-half);
     background: white;
+    margin-block: 2px;
+
     label {
         padding: var(--spacing-one);
         cursor: pointer;
