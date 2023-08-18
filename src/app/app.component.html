@@ -1,10 +1,10 @@
 <aize-ui-toolbar />
 <div class="search-container">
-    <aize-ui-search-field />
+    <aize-ui-search-field (searchChanged)="onSearchChange($event)" />
 </div>
 <div class="filters-container">
     <aize-filters />
 </div>
 <div class="grid-container">
-    <aize-data-grid />
+    <aize-data-grid [data]="data$" />
 </div>

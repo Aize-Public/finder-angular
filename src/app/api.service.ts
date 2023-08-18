@@ -1,7 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { throwError, Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
+import { SearchDataType, SearchResponse } from './types';
 
 
 @Injectable()
@@ -17,8 +18,12 @@ export class ApiService {
     post<T>(path: string, body = {}): Observable<T> {
         return this.http.post<T>(
             `http://localhost:3000/${path}`,
-            JSON.stringify(body)
+            body
         ).pipe(catchError((errors) => throwError(() => new Error(errors.error))));
+    }
+
+    getAll(): Observable<Array<SearchDataType>> {
+        return this.post<SearchResponse>('api/search').pipe(map((response: SearchResponse) => response.results));
     }
 
 }

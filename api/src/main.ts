@@ -123,7 +123,7 @@ app.post('/api/search', (req, res) => {
     // size = defaultSize,
     offset = 0,
   } = req.body;
-
+  console.log({ query }, req.body)
   if (!query) {
     results = searchData.slice(offset, -1);
   } else {

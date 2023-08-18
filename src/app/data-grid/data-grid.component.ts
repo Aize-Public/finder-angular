@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { Component, Pipe, PipeTransform, inject } from '@angular/core';
+import { Component, Input, Pipe, PipeTransform } from '@angular/core';
 import { ApiService } from '../api.service';
-import { DataGridService } from './data-grid.service';
 import { SearchDataType } from '../types';
+import { Observable } from 'rxjs';
 
 @Pipe({
   name: 'headers',
@@ -19,13 +19,11 @@ export class DataHeadersPipe implements PipeTransform {
   selector: 'aize-data-grid',
   standalone: true,
   imports: [CommonModule, HttpClientModule, DataHeadersPipe],
-  providers: [DataGridService, ApiService],
+  providers: [ApiService],
   templateUrl: './data-grid.component.html',
   styleUrls: ['./data-grid.component.scss'],
 })
 export class DataGridComponent {
-
-  protected readonly data$ = inject(DataGridService).getAll();
   protected readonly itemsToShow = 6;
-
+  @Input('data') data$!: Observable<SearchDataType[]>;
 }
