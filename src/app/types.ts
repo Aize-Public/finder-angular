@@ -43,3 +43,14 @@ export type FiltersType = {
         max?: number
     }
 };
+
+export type SearchResponse = {
+    results: Array<SearchDataType>,
+    hits?: number;
+    aggregations?: {
+        [key: string]: Record<string, number> | { min: number, max: number };
+    };
+    stats?: {
+        [key: string]: Record<string, number> | { min: number, max: number };
+    };
+}

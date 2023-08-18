@@ -111,7 +111,7 @@ app.get('/api/meta', (_req, res) => {
 
 
 app.post('/api/search', (req, res) => {
-  const defaultSize = 15;
+  // const defaultSize = 15;
   const searchData = JSON.parse(fs.readFileSync('./dummy_data.json', 'utf-8'));
   let results = [];
 
@@ -120,7 +120,7 @@ app.post('/api/search', (req, res) => {
     aggregate,
     stats,
     filters,
-    size = defaultSize,
+    // size = defaultSize,
     offset = 0,
   } = req.body;
 
@@ -139,7 +139,7 @@ app.post('/api/search', (req, res) => {
   if (offset && query) {
     results = results.slice(offset);
   }
-  let filteredResults = applyFilters(results, filters);
+  const filteredResults = applyFilters(results, filters);
 
   const aggregations = {};
   const stat = {};
@@ -184,11 +184,11 @@ app.post('/api/search', (req, res) => {
 
   const hits = filteredResults.length;
 
-  if (size && size !== 0) {
-    filteredResults = filteredResults.slice(0, size);
-  } else {
-    filteredResults = [];
-  }
+  // if (size && size !== 0) {
+  //   filteredResults = filteredResults.slice(0, size);
+  // } else {
+  //   filteredResults = [];
+  // }
 
   const response = {
     hits,

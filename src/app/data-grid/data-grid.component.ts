@@ -27,4 +27,5 @@ export class DataGridComponent {
 
   protected readonly data$ = inject(DataGridService).getAll();
   protected readonly itemsToShow = 6;
+
 }
