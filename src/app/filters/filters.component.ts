@@ -54,16 +54,16 @@ export class FiltersComponent implements OnInit {
     this.scrollStrategy = this.overlay.scrollStrategies.reposition();
     this.selectionModel.select(...this.defaultFilters)
   }
-  onSelectionChange(values: Array<string>): void {
-    console.table(values)
+  onSelectionChange(values: Array<string>, source: keyof FiltersType): void {
+    console.log(values, source)
   }
 
-  onSliderChange(value: number): void {
-    console.table(value)
+  onSliderChange(value: number, source: keyof FiltersType): void {
+    console.log(value, source)
   }
 
-  onDateChange(date: number) {
-    console.table(date)
+  onDateChange(date: number, source: keyof FiltersType) {
+    console.log(date, source)
   }
 
 }

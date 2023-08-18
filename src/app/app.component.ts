@@ -19,9 +19,17 @@ export class AppComponent {
 
   private readonly api = inject(ApiService);
   protected data$ = this.api.getAll();
+  private activeQuery = '';
+  
+  // activeFilters;
 
+
+  // onFilterChange(filters): void {
+
+  // }
 
   onSearchChange(query: string): void {
+    this.activeQuery = query;
     this.data$ = this.api.post<SearchResponse>('api/search', { query }).pipe(map((response: SearchResponse) => response.results)).pipe(tap(console.log));
   }
 }
