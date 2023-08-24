@@ -3,7 +3,7 @@
     <aize-ui-search-field (searchChanged)="onSearchChange($event)" />
 </div>
 <div class="filters-container">
-    <aize-filters />
+    <aize-filters (filterApplied)="data$ = $event" [query]="activeQuery"/>
 </div>
 <div class="grid-container">
     <aize-data-grid [data]="data$" />

@@ -1,11 +1,11 @@
-import { Component, inject } from '@angular/core';
 import { SearchFieldComponent, ToolbarComponent } from '@aize/ui';
+import { HttpClientModule } from '@angular/common/http';
+import { Component, inject } from '@angular/core';
+import { map } from 'rxjs';
+import { ApiService } from './api.service';
 import { DataGridComponent } from './data-grid/data-grid.component';
 import { FiltersComponent } from './filters/filters.component';
 import { SearchResponse } from './types';
-import { map, tap } from 'rxjs';
-import { ApiService } from './api.service';
-import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   standalone: true,
@@ -18,18 +18,13 @@ import { HttpClientModule } from '@angular/common/http';
 export class AppComponent {
 
   private readonly api = inject(ApiService);
-  protected data$ = this.api.getAll();
-  private activeQuery = '';
-  
-  // activeFilters;
+  private readonly response$ = this.api.getAll();
+  protected data$ = this.response$.pipe(map(response => response.results));
 
-
-  // onFilterChange(filters): void {
-
-  // }
+  activeQuery = '';
 
   onSearchChange(query: string): void {
     this.activeQuery = query;
-    this.data$ = this.api.post<SearchResponse>('api/search', { query }).pipe(map((response: SearchResponse) => response.results)).pipe(tap(console.log));
+    this.data$ = this.api.post<SearchResponse>('api/search', { query }).pipe(map(response => response.results));
   }
 }

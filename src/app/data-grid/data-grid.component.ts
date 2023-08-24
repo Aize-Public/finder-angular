@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Component, Input, Pipe, PipeTransform } from '@angular/core';
+import { Observable } from 'rxjs';
 import { ApiService } from '../api.service';
 import { SearchDataType } from '../types';
-import { Observable } from 'rxjs';
 
 @Pipe({
   name: 'headers',

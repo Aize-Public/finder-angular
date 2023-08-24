@@ -10,7 +10,7 @@
         </ng-container>
     </ng-container>
 </section>
-<hr/>
+<hr />
 <section class="add-filters">
     <button class="filter-btn" (click)="isDropdownOpen = !isDropdownOpen" cdkOverlayOrigin #trigger="cdkOverlayOrigin">+
         Add Filter</button>
@@ -31,15 +31,15 @@
 
 <ng-template #date let-filter>
     <aize-ui-calendar [label]="filter[0]" [min]="filter[1].min" [max]="filter[1].max"
-        (dateChange)="onDateChange($event, filter[0])" />
+        (dateChange)="onDateChange($event, filter[0], filter[1])" />
 </ng-template>
 
 <ng-template #range let-filter>
     <aize-ui-slider [label]="filter[0]" [min]="filter[1].min" [max]="filter[1].max" [range]="filter[1].values"
-        (sliderChange)="onSliderChange($event, filter[0])" />
+        (sliderChange)="onSliderChange($event, filter[0], filter[1])" />
 </ng-template>
 
 <ng-template #menu let-filter>
     <aize-ui-multi-select [label]="filter[0]" [values]="filter[1].values"
-        (selectionChange)="onSelectionChange($event, filter[0])" />
+        (selectionChange)="onSelectionChange($event, filter[0], filter[1])" />
 </ng-template>
