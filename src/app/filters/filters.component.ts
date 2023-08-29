@@ -27,7 +27,7 @@ export class FiltersComponent implements OnInit {
   private statsValue = '';
 
   @Output()
-  filterApplied = new EventEmitter<Observable<SearchDataType[]>>();
+  filterApplied = new EventEmitter<{data$: Observable<SearchDataType[]>, filters: FilterPayload[]}>();
 
   @Input()
   query = '';
@@ -83,7 +83,7 @@ export class FiltersComponent implements OnInit {
     this.applyFilters();
   }
 
-  onDateChange(date: number, label: keyof FiltersType, filter: FilterDataType) {
+  onDateChange(date: number, label: keyof FiltersType, filter: FilterDataType): void {
     if (!this.appliedFilters.has(label)) {
       this.statsValue += !this.statsValue ? label : `,${label}`;
       this.appliedFilters.set(label, {
@@ -105,7 +105,7 @@ export class FiltersComponent implements OnInit {
       filters: [...this.appliedFilters.values()],
       stats: this.statsValue
     }).pipe(take(1)).subscribe((response) => {
-      this.filterApplied.emit(of(response.results));
+      this.filterApplied.emit({data$: of(response.results), filters: [...this.appliedFilters.values()]});
     });
   }
 

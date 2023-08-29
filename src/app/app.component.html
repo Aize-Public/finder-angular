@@ -4,7 +4,7 @@
 </div>
 
 <div class="filters-container">
-    <aize-filters (filterApplied)="data$ = $event" [query]="activeQuery" [filters]="filters" [meta]="meta$" />
+    <aize-filters (filterApplied)="onFilterChange($event)" [query]="activeQuery" [filters]="filters" [meta]="meta$" />
 </div>
 <div class="grid-container">
     <aize-data-grid [data]="data$" />

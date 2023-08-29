@@ -2,11 +2,11 @@ import { SearchFieldComponent, ToolbarComponent } from '@aize/ui';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
-import { Subject, map, tap } from 'rxjs';
+import { Observable, Subject, map, tap } from 'rxjs';
 import { ApiService } from './api.service';
 import { DataGridComponent } from './data-grid/data-grid.component';
 import { FiltersComponent } from './filters/filters.component';
-import { Filters, SearchResponse } from './types';
+import { FilterPayload, Filters, SearchDataType, SearchResponse } from './types';
 import { FiltersService } from './filters/filters.service';
 
 @Component({
@@ -28,9 +28,16 @@ export class AppComponent {
     map(response => response.results)
   );
   protected activeQuery = '';
+  protected activeFilters: FilterPayload[] = [];
+
 
   onSearchChange(query: string): void {
     this.activeQuery = query;
-    this.data$ = this.api.post<SearchResponse>('api/search', { query }).pipe(map(response => response.results));
+    this.data$ = this.api.post<SearchResponse>('api/search', { query, filters: this.activeFilters }).pipe(map(response => response.results));
+  }
+
+  onFilterChange(event: { data$: Observable<SearchDataType[]>, filters: FilterPayload[] }): void {
+    this.data$ = event.data$;
+    this.activeFilters = event.filters;
   }
 }
