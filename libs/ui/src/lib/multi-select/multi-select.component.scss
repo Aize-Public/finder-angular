@@ -100,3 +100,15 @@ label {
         background-color: #f0f0f0;
     }
 }
+
+.filter-btn {
+    position: sticky;
+    bottom: 0;
+    padding: 12px;
+    outline: none;
+    border: none;
+    background: var(--color-secondary);
+    color: white;
+    font-size: var(--spacing-one);
+    cursor: pointer;
+}

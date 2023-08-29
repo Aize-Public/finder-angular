@@ -7,7 +7,7 @@ import { FilterRequest, FiltersType, SearchResponse } from '../types';
 export class FiltersService {
     private readonly api = inject(ApiService);
 
-    getFilters(): Observable<FiltersType> {
+    getMeta(): Observable<FiltersType> {
         return this.api.get('api/meta');
     }
 

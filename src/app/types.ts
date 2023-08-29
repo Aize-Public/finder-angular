@@ -49,12 +49,14 @@ export type SearchResponse = {
     results: Array<SearchDataType>,
     hits?: number;
     aggregations?: {
-        [key: string]: Record<string, number> | { min: number, max: number };
+        [K in keyof SearchDataType]: Record<string, number> | { min: number, max: number };
     };
     stats?: {
-        [key: string]: Record<string, number> | { min: number, max: number };
+        [K in keyof SearchDataType]: Record<string, number> | { min: number, max: number };
     };
 }
+
+export type Filters = Pick<SearchResponse, "aggregations" | "stats">;
 
 export type SearchRequest = {
     query: string;

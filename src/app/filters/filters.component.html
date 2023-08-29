@@ -1,34 +1,36 @@
-<section class="filters" *ngIf="filters$ | async as filters">
-    <ng-container *ngFor="let filter of filters | activeFilters:selectionModel.selected">
-        <ng-container [ngSwitch]="filter[1].dataType">
-            <ng-container *ngSwitchCase="'date'" [ngTemplateOutlet]="date"
-                [ngTemplateOutletContext]="{$implicit: filter}" />
-            <ng-container *ngSwitchCase="'string'" [ngTemplateOutlet]="menu"
-                [ngTemplateOutletContext]="{$implicit: filter}" />
-            <ng-container *ngSwitchCase="'number'" [ngTemplateOutlet]="range"
-                [ngTemplateOutletContext]="{$implicit: filter}" />
+<ng-container *ngIf="meta$ | async as meta">
+    <section class="filters">
+        <ng-container *ngFor="let filter of meta | activeFilters:selectionModel.selected">
+            <ng-container [ngSwitch]="filter[1].dataType">
+                <ng-container *ngSwitchCase="'date'" [ngTemplateOutlet]="date"
+                    [ngTemplateOutletContext]="{$implicit: filter}" />
+                <ng-container *ngSwitchCase="'string'" [ngTemplateOutlet]="menu"
+                    [ngTemplateOutletContext]="{$implicit: filter}" />
+                <ng-container *ngSwitchCase="'number'" [ngTemplateOutlet]="range"
+                    [ngTemplateOutletContext]="{$implicit: filter}" />
+            </ng-container>
         </ng-container>
-    </ng-container>
-</section>
-<hr />
-<section class="add-filters">
-    <button class="filter-btn" (click)="isDropdownOpen = !isDropdownOpen" cdkOverlayOrigin #trigger="cdkOverlayOrigin">+
-        Add Filter</button>
+    </section>
+    <hr />
+    <section class="add-filters">
+        <button class="filter-btn" (click)="isDropdownOpen = !isDropdownOpen" cdkOverlayOrigin
+            #trigger="cdkOverlayOrigin">+
+            Add Filter</button>
 
-    <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="isDropdownOpen"
-        cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayScrollStrategy]="scrollStrategy"
-        cdkConnectedOverlayBackdropClass="overlay-backdrop" cdkConnectedOverlayHasBackdrop
-        (backdropClick)="isDropdownOpen = false">
-        <div class="overlay">
-            <label *ngFor="let filter of availableFilters">
-                <input type="checkbox" [checked]="selectionModel.isSelected(filter)"
-                    (change)="selectionModel.toggle(filter);" />
-                {{ filter }}
-            </label>
-        </div>
-    </ng-template>
-</section>
-
+        <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger"
+            [cdkConnectedOverlayOpen]="isDropdownOpen" cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger"
+            [cdkConnectedOverlayScrollStrategy]="scrollStrategy" cdkConnectedOverlayBackdropClass="overlay-backdrop"
+            cdkConnectedOverlayHasBackdrop (backdropClick)="isDropdownOpen = false">
+            <div class="overlay">
+                <label *ngFor="let filter of meta | availableFilters">
+                    <input type="checkbox" [checked]="selectionModel.isSelected(filter)"
+                        (change)="selectionModel.toggle(filter);" />
+                    {{ filter }}
+                </label>
+            </div>
+        </ng-template>
+    </section>
+</ng-container>
 <ng-template #date let-filter>
     <aize-ui-calendar [label]="filter[0]" [min]="filter[1].min" [max]="filter[1].max"
         (dateChange)="onDateChange($event, filter[0], filter[1])" />
@@ -40,6 +42,6 @@
 </ng-template>
 
 <ng-template #menu let-filter>
-    <aize-ui-multi-select [label]="filter[0]" [values]="filter[1].values"
+    <aize-ui-multi-select [label]="filter[0]" [values]="filter[1].values | updateFilters:filters:filter[0]"
         (selectionChange)="onSelectionChange($event, filter[0], filter[1])" />
 </ng-template>

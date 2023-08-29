@@ -26,5 +26,6 @@
             <input type="checkbox" [checked]="selectionModel.isSelected(value)" (change)="toggleSelection(value)" />
             {{ value }}
         </label>
+        <button class="filter-btn" (click)="onApplyFilter()">Apply Filter </button>
     </div>
 </ng-template>

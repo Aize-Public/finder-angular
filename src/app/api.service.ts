@@ -18,13 +18,6 @@ export class ApiService {
             .pipe(catchError((errors) => throwError(() => new Error(errors.error))));
     }
 
-    post<T>(path: string, body = {}): Observable<T> {
-        return this.http.post<T>(
-            `http://localhost:3000/${path}`,
-            body
-        ).pipe(catchError((errors) => throwError(() => new Error(errors.error))));
-    }
-
     getAll(): Observable<SearchResponse> {
         return this.post<SearchResponse>('api/search', {
             query: '',
@@ -33,6 +26,13 @@ export class ApiService {
         }).pipe(
             shareReplay(1)
         )
+    }
+
+    post<T>(path: string, body = {}): Observable<T> {
+        return this.http.post<T>(
+            `http://localhost:3000/${path}`,
+            body
+        ).pipe(catchError((errors) => throwError(() => new Error(errors.error))));
     }
 
 }

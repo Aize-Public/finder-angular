@@ -108,8 +108,6 @@ app.get('/api/meta', (_req, res) => {
   }
 })
 
-
-
 app.post('/api/search', (req, res) => {
   // const defaultSize = 15;
   const searchData = JSON.parse(fs.readFileSync('./dummy_data.json', 'utf-8'));

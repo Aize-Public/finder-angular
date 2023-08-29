@@ -11,12 +11,12 @@ import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Outp
   templateUrl: './multi-select.component.html',
   styleUrls: ['./multi-select.component.scss'],
 })
-export class MultiSelectComponent implements OnInit, AfterViewInit {
+export class MultiSelectComponent<T> implements OnInit, AfterViewInit {
 
   @ViewChild('tagsContainer') tagsContainer!: ElementRef<HTMLDivElement>;
 
   private readonly overlay = inject(Overlay);
-  protected readonly selectionModel = new SelectionModel<string>(true);
+  protected readonly selectionModel = new SelectionModel<T>(true);
   protected scrollStrategy!: ScrollStrategy;
 
 
@@ -24,7 +24,7 @@ export class MultiSelectComponent implements OnInit, AfterViewInit {
   label = '';
 
   @Input()
-  values = [];
+  values: T[] = [];
 
   @Output()
   selectionChange = new EventEmitter();
@@ -33,7 +33,7 @@ export class MultiSelectComponent implements OnInit, AfterViewInit {
   selectedItems: string[] = [];
   maxVisibleTags = 0;
 
-  get visibleItems(): string[] {
+  get visibleItems(): T[] {
     return this.selectionModel.selected.slice(0, this.maxVisibleTags);
   }
 
@@ -49,9 +49,15 @@ export class MultiSelectComponent implements OnInit, AfterViewInit {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
 
-  toggleSelection(item: string) {
+  toggleSelection(item: T) {
     this.selectionModel.toggle(item);
-    this.selectionChange.emit(this.selectionModel.selected);
+  }
+
+  onApplyFilter(): void {
+    if(this.selectionModel.selected.length !== this.values.length){
+      this.selectionChange.emit(this.selectionModel.selected);
+      this.isDropdownOpen = false;
+    }
   }
 
   private calculateMaxVisibleTags(): void {
