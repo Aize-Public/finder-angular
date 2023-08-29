@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 })
 export class DataHeadersPipe implements PipeTransform {
   transform(value: SearchDataType, itemsToShow?: number) {
-    return Object.keys(value).slice(0, itemsToShow) as Array<keyof SearchDataType>;
+    return value ? Object.keys(value).slice(0, itemsToShow) as Array<keyof SearchDataType> : [];
   }
 }
 
