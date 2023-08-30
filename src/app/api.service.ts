@@ -24,7 +24,8 @@ export class ApiService {
             filters: [],
             ...this.defaultFilters
         }).pipe(
-            shareReplay(1)
+            shareReplay(1),
+            catchError((errors) => throwError(() => new Error(errors.error)))
         )
     }
 

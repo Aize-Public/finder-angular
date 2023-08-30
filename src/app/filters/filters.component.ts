@@ -69,6 +69,7 @@ export class FiltersComponent implements OnInit {
     this.applyFilters();
   }
 
+  // TODO debouncing is missing when slider emits values.
   onSliderChange(value: number, label: keyof FiltersType, filter: FilterDataType): void {
     if (!this.appliedFilters.has(label)) {
       this.statsValue += !this.statsValue ? label : `,${label}`;

@@ -1,3 +1,6 @@
+
+// TODO [Types can be simplified a structured better.]
+
 export type SearchDataType = {
     "SET POINT HIGH HIGH": number;
     "sapParentAvevaExternalId": string;
@@ -34,17 +37,6 @@ export type SearchDataType = {
     "LAST INSPECTION DATE": string;
 };
 
-export type FiltersType = {
-    [K in keyof SearchDataType]: FilterDataType
-};
-
-export type FilterDataType = {
-    dataType: string;
-    values: Array<string | number>;
-    min?: number | undefined;
-    max?: number | undefined;
-}
-
 export type SearchResponse = {
     results: Array<SearchDataType>,
     hits?: number;
@@ -56,8 +48,6 @@ export type SearchResponse = {
     };
 }
 
-export type Filters = Pick<SearchResponse, "aggregations" | "stats">;
-
 export type SearchRequest = {
     query: string;
     aggregate: string;
@@ -66,6 +56,23 @@ export type SearchRequest = {
     offset?: number;
     filters: FilterResponse;
 }
+
+/**
+ * Filters 
+ */
+
+export type FilterDataType = {
+    dataType: string;
+    values: Array<string | number>;
+    min?: number | undefined;
+    max?: number | undefined;
+}
+
+export type FiltersType = {
+    [K in keyof SearchDataType]: FilterDataType
+};
+
+export type Filters = Pick<SearchResponse, "aggregations" | "stats">;
 
 export type FilterResponse = {
     label: string;

@@ -144,6 +144,7 @@ app.post('/api/search', (req, res) => {
   const statsData: { [key: string]: number[] } = {};
 
   if (aggregate || stats) {
+    console.log({stats, aggregate})
     const aggregateFields = aggregate.split(",");
     const statsFields = stats.split(",");
     aggregateFields.forEach((field) => {
